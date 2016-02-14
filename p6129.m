@@ -17,7 +17,7 @@ La = 250; %m
 Lb = 100; %m
 
 
-kc = pi*g*d^5/8;
+kc = pi^2*g*d^5/8;
 
 Vf = @(Q, r) Q/(pi*r^2);
 Ref = @(V, d) V*d/ny;
@@ -31,6 +31,7 @@ f = 0.014;
 %f = h*d/L*2g/V^2;
 %V^2f = h*d/L*2g
 v2f = h12*d/Lguess*2*g;
+
 while (fold ~= f)
     fold = f;
     V = sqrt(v2f/fold);
@@ -47,25 +48,29 @@ Qb = Qa;
 Qold = -1;
 
 v3 = V;
-h13 = h12/2;
+
 
 Qi = @(ci, h, f) (ci*h/f)^1/2;
 
 while abs(Qold - Q) > TOL;
-    h13 = Q/(kc*(sqrt(1/(La*fa))+sqrt(1/(Lb*fb)))^2);
-    
-    %Hitta nästa Qa och Qb;
-    Qa = Qi(kc/La, h13, fa);
-    Va = Vf(Qa, r);
-    Rea = Ref(Va, d);
-    fa = findF(fa,Rea,epsd, TOLf);
-    
-    Qb = Qi(kc/Lb, h13, fb);
-    Vb = Vf(Qb, r);
-    Reb = Ref(Vb, d);
-    fb = findF(fb, Reb, epsd, TOLf);
-    
-    V32 = Vf(Q, r);
+    %while abs(Q - (Qa+Qb)) > TOL
+        %Q = Qa+Qb;
+        h13 = Q/(kc*(sqrt(1/(La*fa))+sqrt(1/(Lb*fb)))^2);
+
+        %Hitta nästa Qa och Qb;
+        Qa = Qi(kc/La, h13, fa);
+        Va = Vf(Qa, r);
+        Rea = Ref(Va, d);
+        fa = findF(fa,Rea,epsd, TOLf);
+
+        Qb = Qi(kc/Lb, h13, fb);
+        Vb = Vf(Qb, r);
+        Reb = Ref(Vb, d);
+        fb = findF(fb, Reb, epsd, TOLf);
+        
+    %end
+
+    V32 = Vf(Qa+Qb, r);
     Re32 = Ref(V32, d);
     f32 = findF(f32, Re32, epsd, TOLf);
     
