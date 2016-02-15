@@ -1,0 +1,20 @@
+function F = eqSys(v, konst)
+%EQSYS Non-linear eq that needs to be solved
+La = konst(1);
+Lb = konst(2); 
+L32 = konst(3);
+fa = konst(4);
+fb = konst(5);
+f32 = konst(6);
+dp = konst(7);
+rho = konst(8
+Va = V(1);
+Vb = V(2);
+V32 = V(3);
+F = [fa*La*Va^2+f32*L32*V32^2 -dp/rho*d*2;
+    fb*Lb*Vb^2+f32*L32*V32^2 - dp/rho*d*2;
+    Va+Vb-Vc];
+
+
+end
+
