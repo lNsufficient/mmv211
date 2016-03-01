@@ -13,7 +13,10 @@ Qf = @(beta) Cdf(beta)*Af(beta)*(2*dp/rho/(1-beta^4))^(1/2);
 
 solveQ = @(beta) Q - Qf(beta);
 
-beta = fsolve(solveQ, 0.5)
+beta = fsolve(solveQ, 0.5);
+%Här testade jag även att pröva mig fram till beta, det jag testade var 
+%beta = 0.5, 0.53, 0.52, 0.51, 0.515.
+
 Cd = Cdf(beta)
 
 d = beta*D
