@@ -1,9 +1,11 @@
 rho_w = 998;
-rho_s = 7.85*rho_w;
+SG = 7.85;
+rho_s = SG*rho_w;
 d = 0.02;
-m_s = rho_s*4*pi*(d/2)^3/3;
+v_s = 4*pi*(d/2)^3/3;
+m_s = rho_s*v_s;
 Cd = 0.47;
-A_s = pi*d^2/2;
+A_s = pi*d^2/4;
 g = 9.82;
-U_max = m_s*g/(rho_w*A_s/2)*1/Cd;
+U_max = sqrt(2*g*v_s*(SG-1)/(Cd*A_s));
 U = U_max*0.99;
